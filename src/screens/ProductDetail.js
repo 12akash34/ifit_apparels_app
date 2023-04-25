@@ -21,6 +21,7 @@ import AskForLoginModal from '../common/AskForLoginModal';
 import { addRecProducts } from '../redux/slices/RecProductsSlice';
 import firestore from '@react-native-firebase/firestore';
 import axios from 'axios';
+import LinearGradient from 'react-native-linear-gradient';
 const ProductDetail = () => {
   const navigation = useNavigation();
   const route = useRoute();
@@ -49,7 +50,8 @@ const ProductDetail = () => {
 
   const getRecProducts = async () => {
     try {
-      const res = await axios.get('http://192.168.0.104:5000/?in_img_path=' + route.params.data.filename + '&model_run=no')
+      const res = await axios.get('http://192.168.0.103:5000/?in_img_path=' + route.params.data.filename + '&model_run=no')
+      // const res = await axios.get('http://192.168.43.233:5000/?in_img_path=' + route.params.data.filename + '&model_run=no')
       // console.log(res.data);
       var arr = [];
       res.data.forEach(element => {
@@ -158,7 +160,7 @@ const ProductDetail = () => {
         </TouchableOpacity>
 
         <CustomButton
-          bg={'#FF9A0C'}
+          bg={'#9396f5'}
           title={'Add To Cart'}
           color={'#fff'}
           onClick={() => {
@@ -185,27 +187,30 @@ const ProductDetail = () => {
           data={recproducts}
           renderItem={({ item, index }) => {
             return (
-              <TouchableOpacity
-                activeOpacity={1}
-                style={styles.productItem}
-                onPress={() => {
-                  navigation.navigate('ProductDetail', { data: item });
-                }}>
-                <Image source={{ uri: item.image }} style={styles.itemImage} />
-                <View>
-                  <Text style={styles.name}>
-                    {item.productDisplayName.length > 25
-                      ? item.productDisplayName.substring(0, 25) + '...'
-                      : item.productDisplayName}
-                  </Text>
-                  <Text style={styles.desc2}>
-                    {item.description.length > 30
-                      ? item.description.substring(0, 30) + '...'
-                      : item.description}
-                  </Text>
-                  <Text style={styles.price}>{'₹' + item.price}</Text>
-                </View>
-              </TouchableOpacity>
+              <LinearGradient colors={['#ffffff', '#e6e6f0', '#ffffff']}
+                style={styles.linearGradient}>
+                <TouchableOpacity
+                  activeOpacity={1}
+                  style={styles.productItem}
+                  onPress={() => {
+                    navigation.navigate('ProductDetail', { data: item });
+                  }}>
+                  <Image source={{ uri: item.image }} style={styles.itemImage} />
+                  <View>
+                    <Text style={styles.name}>
+                      {item.productDisplayName.length > 25
+                        ? item.productDisplayName.substring(0, 25) + '...'
+                        : item.productDisplayName}
+                    </Text>
+                    <Text style={styles.desc2}>
+                      {item.description.length > 30
+                        ? item.description.substring(0, 30) + '...'
+                        : item.description}
+                    </Text>
+                    <Text style={styles.price}>{'₹' + item.price}</Text>
+                  </View>
+                </TouchableOpacity>
+              </LinearGradient>
             );
           }}
         />
@@ -234,28 +239,50 @@ const styles = StyleSheet.create({
     flex: 1,
     backgroundColor: '#fff',
   },
+  linearGradient: {
+    width: Dimensions.get('window').width - 10,
+    height: 94,
+    marginTop: 12,
+    marginLeft: 5,
+    // borderWidth: 1,
+    borderRadius: 14,
+    shadowColor: '#045d9c',
+    shadowOffset: {
+      width: 3,
+      height: 3,
+    },
+    shadowOpacity: 1,
+    shadowRadius: 8,
+    elevation: 4,
+  },
   productItem: {
-    width: Dimensions.get('window').width,
-    height: 100,
-    marginTop: 10,
-    backgroundColor: '#fff',
+    width: Dimensions.get('window').width - 12,
+    height: 94,
+    backgroundColor: 'transparent',
     alignItems: 'center',
     flexDirection: 'row',
+    borderWidth: 4,
+    borderRadius: 14,
+    borderColor: '#c3c3e6',
   },
   itemImage: {
-    width: 100,
-    height: 100,
+    marginLeft: 3,
+    width: 94,
+    height: 86,
+    borderRadius: 8,
   },
   name: {
     fontSize: 18,
     fontWeight: '600',
     marginLeft: 20,
+    color: '#045d9c',
   },
   desc2: {
     marginLeft: 20,
+    color: '#9396f5',
   },
   price: {
-    color: 'green',
+    color: '#4c3f75',
     fontSize: 18,
     fontWeight: '600',
     marginLeft: 20,
@@ -282,17 +309,10 @@ const styles = StyleSheet.create({
   },
   desc: {
     fontSize: 16,
-
+    color: '#9396f5',
     marginLeft: 20,
     marginRight: 20,
     marginTop: 10,
-  },
-  price: {
-    color: 'green',
-    marginLeft: 20,
-    marginTop: 15,
-    fontSize: 18,
-    fontWeight: '800',
   },
   wishlistBtn: {
     position: 'absolute',

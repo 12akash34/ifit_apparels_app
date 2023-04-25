@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
   checkout: {
     width: '80%',
     height: '60%',
-    backgroundColor: '#FF8605',
+    backgroundColor: '#9396f5',
     borderRadius: 10,
     justifyContent: 'center',
     alignItems: 'center',

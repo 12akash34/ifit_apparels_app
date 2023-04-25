@@ -4,3 +4,5 @@ C:\Users\akash\React Projects\mygroceryapp
 npx react-native start
 C:\Users\akash\AppData\Local\Programs\Python\Python310\ifitapparels
 python app.py             browser- http://192.168.0.104:5000/?in_img_path=10000.jpg&model_run=no
+                                     http://192.168.43.233:5000/?in_img_path=10000.jpg&model_run=no
+                                     http://172.0.0.1:5000/?in_img_path=10000.jpg&model_run=no

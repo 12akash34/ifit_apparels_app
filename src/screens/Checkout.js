@@ -241,7 +241,7 @@ const Checkout = () => {
           {selectedAddress}
         </Text>
         <CustomButton
-          bg={'green'}
+          bg={'#9396f5'}
           title={'Pay & Order'}
           color={'#fff'}
           onClick={() => {
