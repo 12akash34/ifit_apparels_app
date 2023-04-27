@@ -106,7 +106,7 @@ const Checkout = () => {
                   onPress={() => {
                     navigation.navigate('ProductDetail', { data: item });
                   }}>
-                  <Image source={{ uri: item.image }} style={styles.itemImage} />
+                  <Image source={{ uri: "http://192.168.43.233:5000/img/"+item.filename }} style={styles.itemImage} />
                   <View>
                     <Text style={styles.name}>
                       {item.productDisplayName.length > 25

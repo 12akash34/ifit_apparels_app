@@ -11,7 +11,7 @@ import {
 } from 'react-native';
 import React, { useState, useEffect } from 'react';
 import Header from '../common/Header';
-import { useNavigation, useRoute } from '@react-navigation/native';
+import { useNavigation, useRoute, useScrollToTop } from '@react-navigation/native';
 import CustomButton from '../common/CustomButton';
 import { useDispatch } from 'react-redux';
 import { addItemToWishList } from '../redux/slices/WishlistSlice';
@@ -46,7 +46,7 @@ const ProductDetail = () => {
   useEffect(() => {
     getRecProducts();
     // addRec();
-  }, []);
+  }, [route]);
 
   const getRecProducts = async () => {
     try {
@@ -171,6 +171,7 @@ const ProductDetail = () => {
                   description: route.params.data.description,
                   id: route.params.data.id,
                   image: route.params.data.image,
+                  filename: route.params.data.filename,
                   price: route.params.data.price,
                   qty: qty,
                   rating: route.params.data.rating,
@@ -298,7 +299,7 @@ const styles = StyleSheet.create({
   },
   title: {
     fontSize: 20,
-    color: '#000',
+    color: '#045d9c',
     fontWeight: '600',
     marginLeft: 20,
     marginTop: 15,
