@@ -1,11 +1,24 @@
 import { View, Text, StyleSheet, Image } from 'react-native'
 import React from 'react'
 import { useNavigation, useRoute } from '@react-navigation/native';
-
+import firestore from '@react-native-firebase/firestore';
 
 const OrderSuccess = () => {
   const navigation = useNavigation();
   const route = useRoute();
+  firestore()
+    .collection('Orders')
+    .add({
+      items: route.params.data.items,
+      amount: route.params.data.amount,
+      address: route.params.data.address,
+      paymentId: route.params.data.paymentId,
+      paymentStatus: route.params.data.paymentStatus,
+      createdAt: route.params.data.createdAt,
+    })
+    .then(() => {
+      console.log('Order added!');
+    });
   return (
     <View style={StyleSheet.container}>
         <Image source={require('../images/checked.png')} style={styles.icon} />

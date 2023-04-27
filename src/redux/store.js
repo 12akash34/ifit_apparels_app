@@ -6,6 +6,10 @@ import CartReducer from './slices/CartSlice';
 import AddressReducer from './slices/AddressSlice';
 import OrderReducer from './slices/OrderSlice';
 export const store = configureStore({
+  middleware: (getDefaultMiddleware) => getDefaultMiddleware({
+    immutableCheck: false,
+    serializableCheck: false,
+  }),
   reducer: {
     product: ProductReduer,
     wishlist: WishlistReducer,

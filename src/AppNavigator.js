@@ -12,6 +12,7 @@ import Addresses from './screens/Addresses';
 import AddAddress from './screens/AddAddress';
 import OrderSuccess from './screens/OrderSuccess';
 import Orders from './screens/Orders';
+import Upload from './screens/Upload';
 const Stack = createNativeStackNavigator();
 const AppNavigator = () => {
   return (
@@ -65,6 +66,11 @@ const AppNavigator = () => {
         <Stack.Screen
           name="Orders"
           component={Orders}
+          options={{headerShown: false}}
+        />
+        <Stack.Screen
+          name="Upload"
+          component={Upload}
           options={{headerShown: false}}
         />
       </Stack.Navigator>

@@ -13,7 +13,7 @@ const CheckoutLayout = ({total, items}) => {
   return (
     <View style={styles.container}>
       <View style={styles.tab}>
-        <Text>{`(items ${items} )`}</Text>
+        <Text style={{color: '#4c3f75'}}>{`(items ${items} )`}</Text>
         <Text style={styles.total}>{'Total: ₹' + total}</Text>
       </View>
       <View style={styles.tab}>
@@ -53,5 +53,5 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     alignItems: 'center',
   },
-  total: {fontWeight: '700', fontSize: 18},
+  total: {fontWeight: '700', fontSize: 18, color: '#4c3f75',},
 });

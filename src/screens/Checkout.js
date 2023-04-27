@@ -26,6 +26,7 @@ import {
 import CustomButton from '../common/CustomButton';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import { orderItem } from '../redux/slices/OrderSlice';
+import LinearGradient from 'react-native-linear-gradient';
 
 const Checkout = () => {
   const navigation = useNavigation();
@@ -69,7 +70,8 @@ const Checkout = () => {
     }
     const data = {
       items: cartItems,
-      amount: '₹' + getTotal(),
+      // amount: '₹' + getTotal(),
+      amount: getTotal(),
       address: selectedAddress,
       paymentId: paymentId,
       paymentStatus: selectedMethod == 3 ? 'Pending' : 'Success',
@@ -91,10 +93,13 @@ const Checkout = () => {
       <ScrollView>
         <Text style={styles.title}>Added Items</Text>
         <View>
+          
           <FlatList
             data={cartItems}
             renderItem={({ item, index }) => {
               return (
+                <LinearGradient colors={['#ffffff', '#f0f0f4', '#ffffff']}
+              style={styles.linearGradient}>
                 <TouchableOpacity
                   activeOpacity={1}
                   style={styles.productItem}
@@ -137,6 +142,7 @@ const Checkout = () => {
                     </View>
                   </View>
                 </TouchableOpacity>
+                </LinearGradient>
               );
             }}
           />
@@ -161,7 +167,7 @@ const Checkout = () => {
             }
             style={[
               styles.img,
-              { tintColor: selectedMethod == 0 ? 'orange' : 'black' },
+              { tintColor: selectedMethod == 0 ? '#4c3f75' : 'black' },
             ]}
           />
           <Text style={styles.paymentMethdodsTxt}>Credit Card</Text>
@@ -179,7 +185,7 @@ const Checkout = () => {
             }
             style={[
               styles.img,
-              { tintColor: selectedMethod == 1 ? 'orange' : 'black' },
+              { tintColor: selectedMethod == 1 ? '#4c3f75' : 'black' },
             ]}
           />
           <Text style={styles.paymentMethdodsTxt}>Debit Card</Text>
@@ -197,7 +203,7 @@ const Checkout = () => {
             }
             style={[
               styles.img,
-              { tintColor: selectedMethod == 2 ? 'orange' : 'black' },
+              { tintColor: selectedMethod == 2 ? '#4c3f75' : 'black' },
             ]}
           />
           <Text style={styles.paymentMethdodsTxt}>UPI</Text>
@@ -215,7 +221,7 @@ const Checkout = () => {
             }
             style={[
               styles.img,
-              { tintColor: selectedMethod == 3 ? 'orange' : 'black' },
+              { tintColor: selectedMethod == 3 ? '#4c3f75' : 'black' },
             ]}
           />
           <Text style={styles.paymentMethdodsTxt}>Cash on Delivery</Text>
@@ -251,7 +257,7 @@ const Checkout = () => {
               currency: 'INR',
               key: 'rzp_test_gzK7OJVS7Ll5nq', // Your api key
               amount: getTotal() * 1000,
-              name: 'foo',
+              name: 'Akash S',
               prefill: {
                 email: 'void@razorpay.com',
                 contact: '9191919191',
@@ -281,6 +287,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: '#fff',
+    marginBottom: 6,
   },
   title: {
     fontSize: 18,
@@ -288,28 +295,53 @@ const styles = StyleSheet.create({
     marginTop: 30,
     color: '#000',
   },
+  linearGradient: {
+    width: Dimensions.get('window').width - 10,
+    height: 94,
+    marginTop: 12,
+    marginLeft: 5,
+    // borderWidth: 1,
+    borderTopRightRadius: 20,
+    borderBottomLeftRadius: 20,
+    // shadowColor: '#4c3f75',
+    // shadowOffset: {
+    //   width: 5,
+    //   height: 5,
+    // },
+    // shadowOpacity: 0.6,
+    // shadowRadius: 20,
+    // elevation: 4,
+  },
   productItem: {
-    width: Dimensions.get('window').width,
-    height: 100,
-    marginTop: 10,
-    backgroundColor: '#fff',
+    width: Dimensions.get('window').width - 12,
+    height: 94,
+    backgroundColor: 'transparent',
     alignItems: 'center',
     flexDirection: 'row',
+    borderWidth: 0,
+    borderTopRightRadius: 20,
+    borderBottomLeftRadius: 20,
+    // borderColor: '#c3c3e6',
   },
   itemImage: {
-    width: 100,
-    height: 100,
+    marginLeft: 3,
+    width: 94,
+    height: 94,
+    borderRadius: 8,
+    resizeMode: 'contain',
   },
   name: {
     fontSize: 18,
     fontWeight: '600',
     marginLeft: 20,
+    color: '#045d9c',
   },
   desc: {
     marginLeft: 20,
+    color: '#9396f5',
   },
   price: {
-    color: 'green',
+    color: '#4c3f75',
     fontSize: 18,
     fontWeight: '600',
     marginLeft: 20,

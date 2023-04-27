@@ -17,6 +17,7 @@ import {
   removeItemFromCart,
 } from '../redux/slices/CartSlice';
 import CheckoutLayout from '../common/CheckoutLayout';
+import LinearGradient from 'react-native-linear-gradient';
 
 const Cart = () => {
   const items = useSelector(state => state.cart);
@@ -48,6 +49,8 @@ const Cart = () => {
         data={cartItems}
         renderItem={({item, index}) => {
           return (
+            <LinearGradient colors={['#ffffff', '#f0f0f4', '#ffffff']}
+                style={styles.linearGradient}>
             <TouchableOpacity
               activeOpacity={1}
               style={styles.productItem}
@@ -90,6 +93,7 @@ const Cart = () => {
                 </View>
               </View>
             </TouchableOpacity>
+            </LinearGradient>
           );
         }}
       />
@@ -109,30 +113,55 @@ export default Cart;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: '#ff',
+    backgroundColor: '#fff',
+  },
+  linearGradient: {
+    width: Dimensions.get('window').width - 10,
+    height: 94,
+    marginTop: 12,
+    marginLeft: 5,
+    // borderWidth: 1,
+    borderTopRightRadius: 20,
+    borderBottomLeftRadius: 20,
+    // shadowColor: '#4c3f75',
+    // shadowOffset: {
+    //   width: 5,
+    //   height: 5,
+    // },
+    // shadowOpacity: 0.6,
+    // shadowRadius: 20,
+    // elevation: 4,
   },
   productItem: {
-    width: Dimensions.get('window').width,
-    height: 100,
-    marginTop: 10,
-    backgroundColor: '#fff',
+    width: Dimensions.get('window').width - 12,
+    height: 94,
+    backgroundColor: 'transparent',
     alignItems: 'center',
     flexDirection: 'row',
+    borderWidth: 0,
+    borderTopRightRadius: 20,
+    borderBottomLeftRadius: 20,
+    // borderColor: '#c3c3e6',
   },
   itemImage: {
-    width: 100,
-    height: 100,
+    marginLeft: 3,
+    width: 94,
+    height: 94,
+    borderRadius: 8,
+    resizeMode: 'contain',
   },
   name: {
     fontSize: 18,
     fontWeight: '600',
     marginLeft: 20,
+    color: '#045d9c',
   },
   desc: {
     marginLeft: 20,
+    color: '#9396f5',
   },
   price: {
-    color: 'green',
+    color: '#4c3f75',
     fontSize: 18,
     fontWeight: '600',
     marginLeft: 20,

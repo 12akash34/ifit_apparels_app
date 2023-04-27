@@ -40,7 +40,7 @@ const Header = ({
           }}>
           <Image
             source={rightIcon}
-            style={[styles.icon, {width: 40, height: 40}]}
+            style={[styles.icon, {width: 28, height: 28}]}
           />
           <View
             style={{
@@ -66,7 +66,7 @@ export default Header;
 const styles = StyleSheet.create({
   header: {
     width: width,
-    height: 65,
+    height: 56,
     // backgroundColor: '#0786DF',
     backgroundColor: '#045d9c',
     flexDirection: 'row',
@@ -82,8 +82,8 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   icon: {
-    width: 30,
-    height: 30,
+    width: 24,
+    height: 24,
     // tintColor: '#fff',
   },
   title: {

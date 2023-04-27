@@ -1,12 +1,36 @@
-import {View, Text, StyleSheet} from 'react-native';
-import React from 'react';
+import {View, Text, StyleSheet, Image} from 'react-native';
+import React, { useEffect, useState } from 'react';
 import Header from '../common/Header';
 import {useSelector} from 'react-redux';
+import firestore from '@react-native-firebase/firestore';
 import { FlatList } from 'react-native-gesture-handler';
 
 const Orders = ({navigation}) => {
   const ordersList = useSelector(state => state.order);
-  // console.log(ordersList);
+  const [orderList, setOrderList] = useState([]);
+  useEffect(() => {
+    getOrderList();
+  }, []);
+  const getOrderList = () => {
+    var arr = [];
+    
+    firestore()
+      .collection('Orders')
+      .get()
+      .then(querySnapshot => {
+        console.log('total : ', querySnapshot.size);
+        // querySnapshot.forEach(documentSnapshot => {
+        //   arr.push(documentSnapshot.data());
+        // });
+        const arr = querySnapshot.docs.map((prod) => prod.data());
+        arr.map((arr, i) => {
+          arr.sr_no = i;
+        });
+        // console.log("array = ", arr);
+        setOrderList(arr);
+        // dispatch(addOrderList(arr));
+      });
+  };
   return ( 
     <View style={styles.container}>
       <Header
@@ -17,32 +41,33 @@ const Orders = ({navigation}) => {
         }}
       />
       <FlatList 
-        data={ordersList.data} 
+        data={orderList} 
         renderItem={({item, index}) => {
           return (
              <View style={styles.orderItems}>
+              <Text style={{fontSize: 16}}>{item.sr_no + 1}. {item.createdAt}   <Text style={{color: 'green'}}>Total : ₹{item.amount}</Text></Text>
               <FlatList 
                 data={item.items} 
                 renderItem={({item,index}) => {
                 return(
                     <View style={styles.productItems}>
-                      <image 
-                        source={{uri:item.image}} 
+                      <Image 
+                        source={{uri: "http://192.168.43.233:5000/img/"+item.filename}} 
                         style={styles.item} 
                       />
                       <View style={styles.nameView}>
-                        <Text>
+                        <Text style={{fontSize: 18}}>
                             {item.productDisplayName.length > 20
                               ? item.productDisplayName.substring(0, 20)
                               : item.productDisplayName}
                         </Text> 
-                        <Text>
+                        <Text style={{fontSize: 14}}>
                             {item.description.length > 30
                               ? item.description.substring(0, 30)
                               : item.description}
                         </Text>  
                         <Text style={{color: 'green'}}>
-                          {'Rs.' + item.price}</Text>
+                          {'₹' + item.price}</Text>
                       </View>     
                     </View>  
                   );  
@@ -65,7 +90,7 @@ const styles = StyleSheet.create({
   orderItems: {
     width: '90%',
     backgroundColor: '#fff',
-    alignSelf: 20,
+    // alignSelf: 20,
     marginTop: 20,
     borderWidth: 0.3,
     padding: 10,

@@ -18,6 +18,7 @@ import LinearGradient from 'react-native-linear-gradient';
 const Home = () => {
   const navigation = useNavigation();
   const [products, setProducts] = useState([]);
+  const [lastDoc, setLastDoc] = useState();
   const dispatch = useDispatch();
   useEffect(() => {
     getProducts();
@@ -32,20 +33,51 @@ const Home = () => {
     //     // console.log(json);
     //     json.map(item => {
     //       item.qty = 1;
-    //     });
+    //     })
+    //     json.forEach(ele => {
+    //       firestore()
+    //         .collection('Products')
+    //         .add({
+    //           srid: ele.srid,
+    //           id: ele.id,
+    //           gender: ele.gender,
+    //           masterCategory: ele.masterCategory,
+    //           subCategory: ele.subCategory,
+    //           articleType: ele.articleType,
+    //           baseColour: ele.baseColour,
+    //           season: ele.season,
+    //           year: ele.year,
+    //           usage: ele.usage,
+    //           productDisplayName: ele.productDisplayName,
+    //           filename: ele.filename,
+    //           price: Math.floor(Math.random() * 1001),
+    //           description: ele.productDisplayName + ' ' + ele.articleType + ' ' + ele.masterCategory + ' ' + ele.subCategory,
+    //           rating: {
+    //             rate: Math.floor(Math.random() * 6),
+    //             count: Math.floor(Math.random() * 401)
+    //           },
+    //           image: ele.image,
+    //         })
+    //       console.log(ele.id)
+    //     })
     //     dispatch(addProducts(json));
     //   });
 
     firestore()
       .collection('Products')
+      .orderBy('productDisplayName', 'asc')
+      .limit(20)
       .get()
       .then(querySnapshot => {
         console.log('total : ', querySnapshot.size);
-        querySnapshot.forEach(documentSnapshot => {
-          arr.push(documentSnapshot.data());
-        });
+        // querySnapshot.forEach(documentSnapshot => {
+        //   arr.push(documentSnapshot.data());
+        // });
+        const arr = querySnapshot.docs.map((prod) => prod.data());
         // console.log("array = ", arr);
         setProducts(arr);
+        const arr2 = querySnapshot.docs[querySnapshot.docs.length-1];
+        setLastDoc(arr2);
         arr.map(arr => {
           arr.qty = 1;
         });
@@ -65,9 +97,35 @@ const Home = () => {
       />
       <FlatList
         data={products}
+        onEndReached={()=>{
+          var arr = [];
+          firestore()
+            .collection('Products')
+            .orderBy('productDisplayName', 'asc')
+            .startAfter(lastDoc)
+            .limit(20)
+            .get()
+            .then(querySnapshot => {
+              console.log('total : ', querySnapshot.size);
+              // querySnapshot.forEach(documentSnapshot => {
+              //   arr.push(documentSnapshot.data());
+              // });
+              const arr = querySnapshot.docs.map((prod) => prod.data());
+              // console.log("array = ", arr);
+              setProducts(products => [...products, ...arr]);
+              const arr2 = querySnapshot.docs[querySnapshot.docs.length-1];
+              setLastDoc(arr2);
+              arr.map(arr => {
+                arr.qty = 1;
+              });
+              const arr3 = [...products, ...arr];
+              dispatch(addProducts(arr3));
+            });
+        }}
+        onEndReachedThreshold={0.2}
         renderItem={({ item, index }) => {
           return (
-            <LinearGradient colors={['#ffffff', '#e6e6f0', '#ffffff']}
+            <LinearGradient colors={['#ffffff', '#f0f0f4', '#ffffff']}
               style={styles.linearGradient}>
               <TouchableOpacity
                 activeOpacity={1}
@@ -76,7 +134,7 @@ const Home = () => {
                   navigation.navigate('ProductDetail', { data: item });
                 }}>
 
-                <Image source={{ uri: item.image }} style={styles.itemImage} />
+                <Image source={{ uri: "http://192.168.43.233:5000/img/"+item.filename }} style={styles.itemImage} />
                 <View>
                   <Text style={styles.name}>
                     {item.productDisplayName.length > 25
@@ -84,9 +142,7 @@ const Home = () => {
                       : item.productDisplayName}
                   </Text>
                   <Text style={styles.desc}>
-                    {item.description.length > 30
-                      ? item.description.substring(0, 30) + '...'
-                      : item.description}
+                  {item.description.length > 30 ? item.description.substring(0, 30) + '...' : item.description}
                   </Text>
                   <Text style={styles.price}>{'₹' + item.price}</Text>
                 </View>
@@ -104,6 +160,8 @@ export default Home;
 const styles = StyleSheet.create({
   container: {
     flex: 1,
+    backgroundColor: '#fff',
+    marginBottom: 55,
   },
   linearGradient: {
     width: Dimensions.get('window').width - 10,
@@ -111,15 +169,16 @@ const styles = StyleSheet.create({
     marginTop: 12,
     marginLeft: 5,
     // borderWidth: 1,
-    borderRadius: 14,
-    shadowColor: '#045d9c',
-    shadowOffset: {
-      width: 3,
-      height: 3,
-    },
-    shadowOpacity: 1,
-    shadowRadius: 8,
-    elevation: 4,
+    borderTopRightRadius: 20,
+    borderBottomLeftRadius: 20,
+    // shadowColor: '#4c3f75',
+    // shadowOffset: {
+    //   width: 5,
+    //   height: 5,
+    // },
+    // shadowOpacity: 0.6,
+    // shadowRadius: 20,
+    // elevation: 4,
   },
   productItem: {
     width: Dimensions.get('window').width - 12,
@@ -127,15 +186,17 @@ const styles = StyleSheet.create({
     backgroundColor: 'transparent',
     alignItems: 'center',
     flexDirection: 'row',
-    borderWidth: 4,
-    borderRadius: 14,
-    borderColor: '#c3c3e6',
+    borderWidth: 0,
+    borderTopRightRadius: 20,
+    borderBottomLeftRadius: 20,
+    // borderColor: '#c3c3e6',
   },
   itemImage: {
     marginLeft: 3,
     width: 94,
-    height: 86,
+    height: 94,
     borderRadius: 8,
+    resizeMode: 'contain',
   },
   name: {
     fontSize: 18,

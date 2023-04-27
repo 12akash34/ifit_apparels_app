@@ -45,17 +45,18 @@ const AddAddress = () => {
         }}
       />
       <TextInput
-        placeholder="Enter State"
-        style={[styles.input, {marginTop: 50}]}
-        value={state}
-        onChangeText={txt => setState(txt)}
-      />
-      <TextInput
         placeholder="Enter City"
-        style={[styles.input, {marginTop: 15}]}
+        style={[styles.input, {marginTop: 50}]}
         value={city}
         onChangeText={txt => setCity(txt)}
       />
+      <TextInput
+        placeholder="Enter State"
+        style={[styles.input, {marginTop: 15}]}
+        value={state}
+        onChangeText={txt => setState(txt)}
+      />
+      
       <TextInput
         placeholder="Enter Pincode"
         keyboardType={'number-pad'}
@@ -102,7 +103,7 @@ const AddAddress = () => {
         </TouchableOpacity>
       </View>
       <CustomButton
-        bg={'#FE9000'}
+        bg={'#9396f5'}
         title={'Save Address'}
         color="#fff"
         onClick={() => {

@@ -17,9 +17,9 @@ const User = () => {
         source={require('../../images/default_user.png')}
         style={styles.user}
       />
-      <Text style={styles.name}>{'Gaurav'}</Text>
+      <Text style={styles.name}>{'Akash'}</Text>
       <Text style={[styles.name, {fontSize: 16, marginTop: 0}]}>
-        {'gaurav@gmail.com'}
+        {'akash@vit.edu.in'}
       </Text>
       <TouchableOpacity style={[styles.tab, {marginTop: 40}]}>
         <Text style={styles.txt}>Edit Profile</Text>
@@ -30,6 +30,13 @@ const User = () => {
           navigation.navigate('Orders');
         }}>
         <Text style={styles.txt}>Orders</Text>
+      </TouchableOpacity>
+      <TouchableOpacity 
+        style={[styles.tab, {marginTop: 10}]}
+        onPress={() => {
+          navigation.navigate('Upload');
+        }}>
+        <Text style={styles.txt}>Upload</Text>
       </TouchableOpacity>
       <TouchableOpacity style={[styles.tab, {marginTop: 10}]}>
         <Text style={styles.txt}>Address</Text>
