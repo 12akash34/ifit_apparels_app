@@ -31,13 +31,13 @@ const User = () => {
         }}>
         <Text style={styles.txt}>Orders</Text>
       </TouchableOpacity>
-      <TouchableOpacity 
+      {/* <TouchableOpacity 
         style={[styles.tab, {marginTop: 10}]}
         onPress={() => {
           navigation.navigate('Upload');
         }}>
         <Text style={styles.txt}>Upload</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <TouchableOpacity style={[styles.tab, {marginTop: 10}]}>
         <Text style={styles.txt}>Address</Text>
       </TouchableOpacity>

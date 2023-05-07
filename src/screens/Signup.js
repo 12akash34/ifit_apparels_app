@@ -59,7 +59,7 @@ const Signup = () => {
         onChangeText={txt => setConfirmPass(txt)}
       />
       <CustomButton
-        bg={'#E27800'}
+        bg={'#9396f5'}
         title={'Sign up'}
         color={'#fff'}
         onClick={() => {

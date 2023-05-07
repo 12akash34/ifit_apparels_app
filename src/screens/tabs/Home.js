@@ -25,7 +25,7 @@ const Home = () => {
   }, []);
   const getProducts = () => {
     var arr = [];
-    // fetch('https://fakestoreapi.com/products')
+    // for uploading of products data
     // fetch('http://192.168.0.104:3000/Products')
     //   .then(res => res.json())
     //   .then(json => {
@@ -70,11 +70,7 @@ const Home = () => {
       .get()
       .then(querySnapshot => {
         console.log('total : ', querySnapshot.size);
-        // querySnapshot.forEach(documentSnapshot => {
-        //   arr.push(documentSnapshot.data());
-        // });
         const arr = querySnapshot.docs.map((prod) => prod.data());
-        // console.log("array = ", arr);
         setProducts(arr);
         const arr2 = querySnapshot.docs[querySnapshot.docs.length-1];
         setLastDoc(arr2);

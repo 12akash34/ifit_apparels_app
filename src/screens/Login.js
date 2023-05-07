@@ -46,13 +46,14 @@ const Login = () => {
 
       <TextInput
         placeholder="Enter password"
+        secureTextEntry={true}
         style={styles.input}
         value={pass}
         onChangeText={txt => setPass(txt)}
       />
 
       <CustomButton
-        bg={'#E27800'}
+        bg={'#9396f5'}
         title={'Login'}
         color={'#fff'}
         onClick={() => {
