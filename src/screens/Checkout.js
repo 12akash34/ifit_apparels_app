@@ -256,7 +256,7 @@ const Checkout = () => {
               image: 'https://i.imgur.com/3g7nmJC.png',
               currency: 'INR',
               key: 'rzp_test_gzK7OJVS7Ll5nq', // Your api key
-              amount: getTotal() * 1000,
+              amount: getTotal() * 100,
               name: 'Akash S',
               prefill: {
                 email: 'void@razorpay.com',

@@ -38,12 +38,15 @@ const User = () => {
         }}>
         <Text style={styles.txt}>Upload</Text>
       </TouchableOpacity> */}
-      <TouchableOpacity style={[styles.tab, {marginTop: 10}]}>
+      <TouchableOpacity style={[styles.tab, {marginTop: 10}]}
+      onPress={() => {
+        navigation.navigate('Addresses');
+      }}>
         <Text style={styles.txt}>Address</Text>
       </TouchableOpacity>
-      <TouchableOpacity style={[styles.tab, {marginTop: 10}]}>
+      {/* <TouchableOpacity style={[styles.tab, {marginTop: 10}]}>
         <Text style={styles.txt}>Payment Methods</Text>
-      </TouchableOpacity>
+      </TouchableOpacity> */}
       <TouchableOpacity
         style={[styles.tab, {marginTop: 10}]}
         onPress={() => {
